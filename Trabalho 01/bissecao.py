@@ -9,20 +9,19 @@ def isNegative( num ):
 
     
 def bissecao(func, a, b, precision):
-    data = {}
     if (func(a) * func(b) >= 0):
         return "Não há raizes nesse intervalo"
 
     meio = a
-    while ((b - a) >= precision):
+    while (abs(b - a) >= precision or abs(func(meio)) >= precision):
         
         meio = (a + b) / 2
-        printData(func, a, b, meio)
+        #printData(func, a, b, meio)
         
         if(func(meio) == 0):
             return func(meio)
     
-        if(isNegative(func(meio)) and isNegative(func(a))):
+        if(func(meio) * func(a) >= 0):
             a = meio
         else:
             b = meio
