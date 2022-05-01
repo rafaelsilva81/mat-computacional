@@ -20,20 +20,12 @@ def posicaoFalsa(func, a, b, precision):
         return "Não é possivel garantir que há raízes nesse intervalo"
     
     while True:
-        x3 = (b*f1 - a*f2) / (f1 - f2)
+        x3 = x1 - (x2 - x1) * f1 / (f2 - f1)
         f3 = func(x3)
-        if (f3 * f2 <= 0): #Caso isso seja verdadeiro, a raiz está entre [x2, x3]
-            #Replace (x1,f1) with (x2,f2)
-            x1 = x2
-            f1 = f2
-            #Replace (x2,f2) with (x3,f3)
+        if (f1 * f3 < 0): #Caso isso seja verdadeiro, a raiz está entre [x2, x3]
             x2 = x3
-            f2 = f3
         else: #Se não, a raiz está entre [x1, x3]
-            #(X1,f1) will stay the same
-            #Replace (x2, f2) with (x3,f3)
-            x2 = x3
-            f2 = f3
+            x1 = x3
         if (abs(f1) < abs(f2)):
             root = x1
         else: 
