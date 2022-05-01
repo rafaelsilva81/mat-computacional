@@ -1,54 +1,56 @@
 import os
 import numpy
 
-def isNegative( num ):
-    if num<0:
-        return True
-    else:
-        return False
-
     
 def pegasus(func, a, b, precision):
-    if (func(a) * func(b) >= 0):
-        return "Não é garantido encontrar uma raiz nesse intervalo"
-
-    prox_iteracao = a
-    while (abs(b-a) >= precision or abs(func(prox_iteracao)) >= precision):
-        
-        prox_iteracao = (func(a) *func(b)) / (func(b) + func(prox_iteracao))
-        
-        if(func(prox_iteracao) == 0):
-            break
-
-        #print("Xk ", prox_iteracao)
-        #print("F(xk) ", func(prox_iteracao))
-        #x = input()
-
-        if(func(a) * func(prox_iteracao) >= 0):
-            a = prox_iteracao
-        else:
-            b = prox_iteracao
-
-        #print("a ", a)
-        #print("b ", b)
-        #print("|b-a|", abs(b-a))
-        
-        #if(abs(b-a) < precision and abs(func(prox_iteracao)) < precision):
-           #break
-
-        #x = input()
-        
+    x1 = a
+    f1 = func(x1)
+    x2 = b
+    f2 = func(x2)
+    x3 = 0
+    f3 = 0
     
-    return prox_iteracao
+    #Inicialização
+    success = 0
+    root = x1
+
+    if (f1 * f2 >= 0):
+        return "Não é possivel garantir que há raízes nesse intervalo"
+    
+    while True:
+        x3 = x2 - f2/( (f2-f1)/(x2-x1) )
+        f3 = func(x3)
+        if (f3 * f2 <= 0): #Caso isso seja verdadeiro, a raiz está entre [x2, x3]
+            #Replace (x1,f1) with (x2,f2)
+            x1 = x2
+            f1 = f2
+            #Replace (x2,f2) with (x3,f3)
+            x2 = x3
+            f2 = f3
+        else: #Se não, a raiz está entre [x1, x3]
+            #Replace (x1,f1) by (x1,f1')
+            f1 = f1 * f2 / (f2 +  f3)
+            #Replace (x2, f2) with (x3,f3)
+            x2 = x3
+            f2 = f3
+        if (abs(f1) < abs(f2)):
+            root = x1
+        else: 
+            root = x2
+        success = (abs(x2-x1) <= precision)
+        if (success):
+            break
+    
+    return root
 
 def main():
-    print("Exemplo de função --> 2*(x*x*x) - 5*(x*x) + x + 10")
+    print("Exemplo de função --> (x*x*x) - 9*x + 3")
     i = input("Entre com a função no formato do terminal: ")  # enter function once
     i = compile(i, 'input', 'eval')
     a = int(input("Entre o primeiro intervalo : "))
     b = int(input("Entre o segundo intervalo : "))
     prec = float(input("Entre com a precisão : "))
-    print(prec)
+    #print(prec)
     func = lambda x : eval(i, {'x': x, 'np': numpy})
 
     res = pegasus(func, a, b, prec)

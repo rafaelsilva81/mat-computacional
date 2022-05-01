@@ -1,12 +1,6 @@
 import os
 import numpy
 
-def isNegative( num ):
-    if num<0:
-        return True
-    else:
-        return False
-
     
 def bissecao(func, a, b, precision):
     if (func(a) * func(b) >= 0):
@@ -31,8 +25,8 @@ def bissecao(func, a, b, precision):
     return meio
 
 def main():
-    print("Exemplo de função --> 2*(x*x*x) - 5*(x*x) + x + 10")
-    i = input("Entre com a função no formato do terminal: ")  # enter function once
+    print("Exemplo de função --> (x*x*x) - 9*x + 3")
+    i = input("Entre com a função no formato do terminal: ") 
     i = compile(i, 'input', 'eval')
     a = int(input("Entre o primeiro intervalo : "))
     b = int(input("Entre o segundo intervalo : "))
