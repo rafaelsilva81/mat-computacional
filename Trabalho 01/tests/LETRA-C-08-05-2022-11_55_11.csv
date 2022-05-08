@@ -1,0 +1,6 @@
+Metodo utilizado,Raiz encontrada,Tempo de execução(ms),Quantidade de Iterações
+Bisseção,-1.28021240234375,0.04864,17
+Falsa Posição,1.7035133672178684,0.03815,15
+Pegasus,1.6974228507089615,0.06104,30
+
+Precisão:,0.01
